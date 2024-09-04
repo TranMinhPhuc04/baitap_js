@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BaiTapJS</title>
+    <style>
+      label {
+        color: blue;
+        font-size: x-large;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Kiểm tra Số Dương</h1>
+    <label for="numberInput">Nhập một số:</label>
+    <input type="number" id="numberInput" />
+    <button onclick="checkNumber()">Kiểm tra</button>
+    <p id="pThongBaoCheckNumber"></p>
+
+    <hr />
+
+    <h1>Kiểm tra Tuổi Vào Lớp 1</h1>
+    <label for="ageInput">Nhập tuổi của học sinh:</label>
+    <input type="number" id="ageInput" />
+    <button onclick="checkAge()">Kiểm tra</button>
+    <p id="pThongBaoTuoiHS"></p>
+
+    <hr />
+
+    <h1>Kiểm tra Số Chẵn</h1>
+    <label for="evenNumberInput">Nhập một số:</label>
+    <input type="number" id="evenNumberInput" />
+    <button onclick="checkEvenNumber()">Kiểm tra</button>
+    <p id="pThongBaoChanLe"></p>
+    <script src="./main.js"></script>
+
+    <hr />
+
+    <h1>Bài Tập với If-Else</h1>
+    <!-- Bài 1: Kiểm tra độ tuổi lái xe -->
+    <h1>Kiểm tra tuổi vào dự đăng kí lái xe?</h1>
+    <input id="number_3" type="number" placeholder="Vui lòng nhập số tuổi" />
+    <button id="" onclick="kiemTraTuoiLaiXe()">Kiểm tra số tuổi lái xe</button>
+    <p id="pThongBaoTuoiLaiXe"></p>
+
+    <!-- Bài 2: Xét thưởng nhân viên đạt đủ doanh số -->
+    <h1>Xét Thưởng Nhân Viên</h1>
+    <input
+      id="number_4"
+      type="number"
+      placeholder="Nhập số sản phẩm bán được"
+    />
+    <button onclick="checkSale()">Xét Thưởng</button>
+    <p id="pThongBaoThuongNV"></p>
+
+    <!-- Bài 3: Tính chiết khấu -->
+    <h1>Tính Chiết Khấu</h1>
+    <input
+      type="number"
+      id="purchaseAmountInput"
+      placeholder="Nhập số tiền mua hàng (USD)"
+    />
+    <button onclick="calculateDiscount()">Tính Chiết Khấu</button>
+    <p id="pThongBaoChietKhau"></p>
+
+    <hr />
+
+    <h2>Kiểm Tra Mật Khẩu</h2>
+    <input type="password" id="passwordInput" placeholder="Nhập mật khẩu" />
+    <button onclick="checkPassword()">Kiểm tra</button>
+    <p id="passwordResult"></p>
+  </body>
+</html>
