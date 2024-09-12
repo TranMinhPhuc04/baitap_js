@@ -1,12 +1,26 @@
 // QUẢN LÝ TUYỂN SINH
-function calculateAdmission() {
-    const totalScore = parseFloat(document.getElementById('totalScore').value);
-    const cutoffScore = parseFloat(document.getElementById('cutoffScore').value);
-    const region = document.getElementById('region').value.toUpperCase();
-    const priorityObject = parseInt(document.getElementById('priorityObject').value);
+function kiemTraTuyenSinh() {
+    const diemMon1 = parseFloat(document.getElementById('diemMon1').value) || 0;
+    const diemMon2 = parseFloat(document.getElementById('diemMon2').value) || 0;
+    const diemMon3 = parseFloat(document.getElementById('diemMon3').value) || 0;
+    const diemChuan = parseFloat(document.getElementById('diemChuan').value);
+    const khuVuc = document.getElementById('khuVuc').value.toUpperCase();
+    const doiTuongUuTien = parseInt(document.getElementById('doiTuongUuTien').value);
+
+    // Tính tổng điểm 3 môn
+    const tongDiem = diemMon1 + diemMon2 + diemMon3;
+
+    // Hiển thị tổng điểm
+    document.getElementById('hienThiTongDiem').innerText = tongDiem;
+
+    // Kiểm tra nếu có môn nào có điểm là 0
+    if (diemMon1 === 0 || diemMon2 === 0 || diemMon3 === 0) {
+        document.getElementById('thongBaoTuyenSinh').innerText = "Rớt! Có môn có điểm 0.";
+        return;
+    }
 
     // Bảng điểm ưu tiên theo khu vực
-    const regionScores = {
+    const diemKhuVuc = {
         'A': 2,
         'B': 1,
         'C': 0.5,
@@ -14,7 +28,7 @@ function calculateAdmission() {
     };
 
     // Bảng điểm ưu tiên theo đối tượng
-    const objectScores = {
+    const diemDoiTuong = {
         1: 2.5,
         2: 1.5,
         3: 1,
@@ -22,24 +36,22 @@ function calculateAdmission() {
     };
 
     // Kiểm tra nếu khu vực hoặc đối tượng không hợp lệ
-    if (!(region in regionScores) || !(priorityObject in objectScores)) {
-        document.getElementById('pThongBaoTuyenSinh').innerText = "Khu vực hoặc đối tượng không hợp lệ.";
+    if (!(khuVuc in diemKhuVuc) || !(doiTuongUuTien in diemDoiTuong)) {
+        document.getElementById('thongBaoTuyenSinh').innerText = "Khu vực hoặc đối tượng không hợp lệ.";
         return;
     }
 
     // Tính tổng điểm ưu tiên
-    const priorityScore = regionScores[region] + objectScores[priorityObject];
+    const diemUuTien = diemKhuVuc[khuVuc] + diemDoiTuong[doiTuongUuTien];
 
     // Tính tổng điểm cuối cùng
-    const finalScore = totalScore + priorityScore;
+    const diemCuoiCung = tongDiem + diemUuTien;
 
     // Kiểm tra kết quả
-    if (totalScore <= 0 || finalScore >= cutoffScore) {
-        document.getElementById('pThongBaoTuyenSinh').innerText = 
-            `Đậu! Tổng điểm của bạn là: ${finalScore}`;
+    if (diemCuoiCung >= diemChuan) {
+        document.getElementById('thongBaoTuyenSinh').innerText = `Đậu! Tổng điểm của bạn là: ${diemCuoiCung}`;
     } else {
-        document.getElementById('pThongBaoTuyenSinh').innerText = 
-            `Rớt! Tổng điểm của bạn là: ${finalScore}`;
+        document.getElementById('thongBaoTuyenSinh').innerText = `Rớt! Tổng điểm của bạn là: ${diemCuoiCung}`;
     }
 }
 
@@ -67,40 +79,47 @@ function calculateElectricity() {
 }
 
 // TÍNH THUẾ THU NHẬP CÁ NHÂN
-function calculateTax() {
-    const nameThueCaNhan = document.getElementById('nameThueCaNhan').value;
-    const income = parseFloat(document.getElementById('income').value);
-    const dependents = parseInt(document.getElementById('dependents').value);
+function tinhThue() {
+    const hoTen = document.getElementById('hoTen').value;
+    const tongThuNhap = parseFloat(document.getElementById('tongThuNhap').value);
+    const soNguoiPhuThuoc = parseInt(document.getElementById('soNguoiPhuThuoc').value);
 
-    // Thu nhập chịu thuế = Tổng thu nhập năm - 4 triệu - số người phụ thuộc * 1.6 triệu
-    const taxableIncome = income - 4 - dependents * 1.6;
+    // Bước 1: Tính thu nhập chịu thuế
+    const thuNhapChiuThue = tongThuNhap - 4 - (soNguoiPhuThuoc * 1.6);
 
-    if (taxableIncome <= 0) {
-        document.getElementById('result').innerText = `${nameThueCaNhan}, bạn không phải nộp thuế vì thu nhập chịu thuế của bạn là ${taxableIncome.toFixed(2)} triệu VND.`;
+    if (thuNhapChiuThue <= 0) {
+        document.getElementById('thongBaoKetQua').innerText = `${hoTen} không phải đóng thuế.`;
         return;
     }
 
-    let tax = 0;
-
-    if (taxableIncome <= 60) {
-        tax = taxableIncome * 0.05;
-    } else if (taxableIncome <= 120) {
-        tax = 60 * 0.05 + (taxableIncome - 60) * 0.10;
-    } else if (taxableIncome <= 210) {
-        tax = 60 * 0.05 + 60 * 0.10 + (taxableIncome - 120) * 0.15;
-    } else if (taxableIncome <= 384) {
-        tax = 60 * 0.05 + 60 * 0.10 + 90 * 0.15 + (taxableIncome - 210) * 0.20;
-    } else if (taxableIncome <= 624) {
-        tax = 60 * 0.05 + 60 * 0.10 + 90 * 0.15 + 174 * 0.20 + (taxableIncome - 384) * 0.25;
-    } else if (taxableIncome <= 960) {
-        tax = 60 * 0.05 + 60 * 0.10 + 90 * 0.15 + 174 * 0.20 + 240 * 0.25 + (taxableIncome - 624) * 0.30;
+    // Bước 2: Tính thuế dựa trên bảng thuế suất
+    let thue = 0;
+    if (thuNhapChiuThue <= 60) {
+        thue = thuNhapChiuThue * 0.05;
+    } else if (thuNhapChiuThue <= 120) {
+        thue = (60 * 0.05) + (thuNhapChiuThue - 60) * 0.1;
+    } else if (thuNhapChiuThue <= 210) {
+        thue = (60 * 0.05) + (60 * 0.1) + (thuNhapChiuThue - 120) * 0.15;
+    } else if (thuNhapChiuThue <= 384) {
+        thue = (60 * 0.05) + (60 * 0.1) + (90 * 0.15) + (thuNhapChiuThue - 210) * 0.2;
+    } else if (thuNhapChiuThue <= 624) {
+        thue = (60 * 0.05) + (60 * 0.1) + (90 * 0.15) + (174 * 0.2) + (thuNhapChiuThue - 384) * 0.25;
+    } else if (thuNhapChiuThue <= 960) {
+        thue = (60 * 0.05) + (60 * 0.1) + (90 * 0.15) + (174 * 0.2) + (240 * 0.25) + (thuNhapChiuThue - 624) * 0.3;
     } else {
-        tax = 60 * 0.05 + 60 * 0.10 + 90 * 0.15 + 174 * 0.20 + 240 * 0.25 + 336 * 0.30 + (taxableIncome - 960) * 0.35;
+        thue = (60 * 0.05) + (60 * 0.1) + (90 * 0.15) + (174 * 0.2) + (240 * 0.25) + (336 * 0.3) + (thuNhapChiuThue - 960) * 0.35;
     }
 
-    document.getElementById('result').innerText = 
-        `${nameThueCaNhan}, tổng thuế thu nhập cá nhân phải nộp là: ${tax.toLocaleString()} triệu VND cho thu nhập chịu thuế là ${taxableIncome.toFixed(2)} triệu VND.`;
+    // Làm tròn thuế và thu nhập chịu thuế trước khi định dạng
+    const thueLamTron = thue.toFixed(2);  // Keeping two decimal places without multiplying by 1,000,000
+    const thuNhapChiuThueLamTron = thuNhapChiuThue.toFixed(2);  // Also keeping two decimal places
+
+    document.getElementById('thongBaoKetQua').innerText = 
+    `${hoTen}, tổng thuế thu nhập cá nhân phải nộp là: ${parseFloat(thueLamTron).toLocaleString('vi-VN')} triệu VND cho thu nhập chịu thuế là ${parseFloat(thuNhapChiuThueLamTron).toLocaleString('vi-VN')} triệu VND.`;
+
+
 }
+
 
 // TÍNH TIỀN CÁP
 function toggleConnections() {
@@ -110,16 +129,7 @@ function toggleConnections() {
         connectionsDiv.style.display = "block";
     } else {
         connectionsDiv.style.display = "none";
-    }
-}
-
-function toggleConnections() {
-    var customerType = document.getElementById("customerType").value;
-    var connectionsDiv = document.getElementById("connectionsDiv");
-    if (customerType === "business") {
-        connectionsDiv.style.display = "block";
-    } else {
-        connectionsDiv.style.display = "none";
+        document.getElementById("connections").value = 0; // Reset số kết nối khi chọn loại nhà dân
     }
 }
 
@@ -132,7 +142,11 @@ function calculateBill() {
     if (customerType === "household") {
         totalBill = 4.5 + 20.5 + (channels * 7.5);
     } else if (customerType === "business") {
-        totalBill = 15 + 75 + ((connections - 10) * 5) + (channels * 50);
+        var baseFee = 75; // Phí dịch vụ cơ bản cho 10 kết nối đầu
+        if (connections > 10) {
+            baseFee += (connections - 10) * 5; // Mỗi kết nối thêm sẽ tốn $5
+        }
+        totalBill = 15 + baseFee + (channels * 50); // Phí xử lý hóa đơn + phí kết nối + phí kênh cao cấp
     }
 
     document.getElementById("totalBill").innerText = totalBill.toFixed(2);

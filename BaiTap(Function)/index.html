@@ -17,39 +17,45 @@
   </head>
   <body>
     <h2>Quản Lý Tuyển Sinh</h2>
+    <form id="formTuyenSinh">
+      <label for="diemMon1">Điểm môn thứ 1:</label>
+      <input type="number" id="diemMon1" name="diemMon1" /><br /><br />
 
-    <form id="admissionForm">
-      <label for="totalScore">Điểm tổng kết 3 môn:</label>
-      <input type="number" id="totalScore" name="totalScore" /><br /><br />
+      <label for="diemMon2">Điểm môn thứ 2:</label>
+      <input type="number" id="diemMon2" name="diemMon2" /><br /><br />
 
-      <label for="cutoffScore">Điểm chuẩn:</label>
-      <input type="number" id="cutoffScore" name="cutoffScore" /><br /><br />
+      <label for="diemMon3">Điểm môn thứ 3:</label>
+      <input type="number" id="diemMon3" name="diemMon3" /><br /><br />
 
-      <label for="region"
+      <label for="hienThiTongDiem">Tổng điểm 3 môn:</label>
+      <span id="hienThiTongDiem">0</span><br /><br />
+
+      <label for="diemChuan">Điểm chuẩn:</label>
+      <input type="number" id="diemChuan" name="diemChuan" /><br /><br />
+
+      <label for="khuVuc"
         >Khu vực (A, B, C hoặc X nếu không thuộc khu vực):</label
       >
-      <input type="text" id="region" name="region" /><br /><br />
+      <input type="text" id="khuVuc" name="khuVuc" /><br /><br />
 
-      <label for="priorityObject"
+      <label for="doiTuongUuTien"
         >Đối tượng (1, 2, 3 hoặc 0 nếu không thuộc đối tượng ưu tiên):</label
       >
       <input
         type="number"
-        id="priorityObject"
-        name="priorityObject"
+        id="doiTuongUuTien"
+        name="doiTuongUuTien"
       /><br /><br />
 
-      <button type="button" onclick="calculateAdmission()">
+      <button type="button" onclick="kiemTraTuyenSinh()">
         Kiểm tra kết quả
       </button>
     </form>
-
-    <p id="pThongBaoTuyenSinh"></p>
+    <p id="thongBaoTuyenSinh"></p>
 
     <hr />
 
     <h2>Tính Tiền Điện</h2>
-
     <form id="electricityForm">
       <label for="name">Tên khách hàng:</label>
       <input type="text" id="nameTienDien" name="name" /><br /><br />
@@ -64,21 +70,23 @@
     <hr />
 
     <h2>Tính Thuế Thu Nhập Cá Nhân</h2>
+    <form id="formTinhThue">
+      <label for="hoTen">Họ tên:</label>
+      <input type="text" id="hoTen" name="hoTen" /><br /><br />
 
-    <form id="taxForm">
-      <label for="name">Họ và tên:</label>
-      <input type="text" id="nameThueCaNhan" name="name" /><br /><br />
+      <label for="tongThuNhap">Tổng thu nhập năm (triệu VND):</label>
+      <input type="number" id="tongThuNhap" name="tongThuNhap" /><br /><br />
 
-      <label for="income">Tổng thu nhập năm (triệu VND):</label>
-      <input type="number" id="income" name="income" /><br /><br />
+      <label for="soNguoiPhuThuoc">Số người phụ thuộc:</label>
+      <input
+        type="number"
+        id="soNguoiPhuThuoc"
+        name="soNguoiPhuThuoc"
+      /><br /><br />
 
-      <label for="dependents">Số người phụ thuộc:</label>
-      <input type="number" id="dependents" name="dependents" /><br /><br />
-
-      <button type="button" onclick="calculateTax()">Tính thuế</button>
+      <button type="button" onclick="tinhThue()">Tính thuế</button>
     </form>
-
-    <p id="result"></p>
+    <p id="thongBaoKetQua"></p>
 
     <hr />
 
@@ -100,8 +108,8 @@
 
       <button type="button" onclick="calculateBill()">Tính hóa đơn</button>
     </form>
-
     <h2>Tổng hóa đơn: $<span id="totalBill">0.00</span></h2>
+
     <script src="./index.js"></script>
   </body>
 </html>
