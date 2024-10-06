@@ -10,6 +10,10 @@ const manageStaff = new ManageStaff();
 const getEleId = (id) => document.getElementById(id);
 
 getEleId("btnThem").onclick = () => {
+    // Style hidden "Cap Nhat"
+    getEleId("btnCapNhat").style.display = "None";
+    // Style show "Them Mon"
+    getEleId("btnThemNV").style.display = "block";
     // reset form
     getEleId("staffForm").reset();
 };
@@ -25,6 +29,10 @@ const deleteStaff = (id) => {
 window.deleteStaff = deleteStaff;
 
 const editStaff = (taiKhoan) => {
+    // Style hidden "Them Mon"
+    getEleId("btnThemNV").style.display = "None";
+    // Style show "Cap Nhat"
+    getEleId("btnCapNhat").style.display = "block";
     const staff = manageStaff.getStaffById(taiKhoan);
     if (staff) {
         getEleId("tknv").value = staff.taiKhoan;
