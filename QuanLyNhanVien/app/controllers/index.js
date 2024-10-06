@@ -158,6 +158,8 @@ getEleId("btnThemNV").onclick = () => {
         manageStaff.addStaff(staff);
         renderStaff(manageStaff.listStaff);
         setLocalStorage();
+        // Close the modal after adding staff
+        getEleId("btnDong").click();
     }
 };
 
@@ -169,6 +171,8 @@ getEleId("btnCapNhat").onclick = () => {
     renderStaff(manageStaff.listStaff);
     // save list staff to local storage
     setLocalStorage();
+    // Close the modal after adding staff
+    getEleId("btnDong").click();
 };
 
 /**
